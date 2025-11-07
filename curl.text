@@ -1,0 +1,1 @@
+curl -k -X POST https://us-east-2lzzishd34.auth.us-east-2.amazoncognito.com/oauth2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=password&client_id=4k35tp7dhes555s1teb025886h&username=leinadpy@hotmail.com&password=Dyavictoria301021!&scope=openid"
