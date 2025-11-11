@@ -12,14 +12,11 @@ export async function uploadAuctionPicture(event) {
   const base64 = event.body.replace(/^data:image\/\w+;base64,/, "");
   const buffer = Buffer.from(base64, "base64");
 
+  let updatedAuction;
+
   try {
-    const pictureUrl = await uploadPictureToS3(
-      `${auction.id}.jpg`,
-      buffer
-    );
-    console.log("Upload to S3 result:", pictureUrl);
-    const updatedAuction = await updateAuctionImageUrl(auction.id, pictureUrl);
-    console.log("Updated auction with picture URL:", updatedAuction);
+    const pictureUrl = await uploadPictureToS3(`${auction.id}.jpg`, buffer);
+    updatedAuction = await updateAuctionImageUrl(auction.id, pictureUrl);
   } catch (error) {
     console.error("Error uploading picture to S3:", error);
     throw new createError(error);
@@ -27,7 +24,7 @@ export async function uploadAuctionPicture(event) {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({}),
+    body: JSON.stringify(updatedAuction),
   };
 }
 
